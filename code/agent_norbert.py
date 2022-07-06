@@ -21,13 +21,19 @@ class User:
     @staticmethod
     def _validate_input(account_id: str, date_key: str, revenue: float) -> None:
         if not isinstance(account_id, str):
-            raise ValueError(f'Wrong type for {account_id} - expected string, got {type(account_id)}!')
+            raise ValueError(
+                f"Wrong type for {account_id} - expected string, got {type(account_id)}!"
+            )
 
         if not isinstance(date_key, str):
-            raise ValueError(f'Wrong type for {date_key} - expected string, got {type(date_key)}!')
+            raise ValueError(
+                f"Wrong type for {date_key} - expected string, got {type(date_key)}!"
+            )
 
         if not isinstance(revenue, float):
-            raise ValueError(f'Wrong type for {revenue} - expected float, got {type(revenue)}!')
+            raise ValueError(
+                f"Wrong type for {revenue} - expected float, got {type(revenue)}!"
+            )
 
     def get_info(self) -> List[Union[str, str, float]]:
         return [self.account_id, self.date_key, self.revenue]
@@ -36,15 +42,19 @@ class User:
 class RecordsCreator:
     def __init__(self, no_accounts, start_date, end_date) -> None:
         self.no_accounts = no_accounts
-        self.start_date = dt.datetime.strptime(start_date, '%Y-%m-%d').date()
-        self.end_date = dt.datetime.strptime(end_date, '%Y-%m-%d').date()
+        self.start_date = dt.datetime.strptime(start_date, "%Y-%m-%d").date()
+        self.end_date = dt.datetime.strptime(end_date, "%Y-%m-%d").date()
         self.users = []
         self.output = []
         self.df = None
 
     def fullfill(self) -> None:
 
-        date_range = pd.date_range(self.start_date, self.end_date, freq='MS').strftime("%Y-%m-%d").tolist()
+        date_range = (
+            pd.date_range(self.start_date, self.end_date, freq="MS")
+            .strftime("%Y-%m-%d")
+            .tolist()
+        )
 
         for idx, _ in enumerate(range(self.no_accounts)):
             account_id = str(uuid.uuid4())
@@ -66,12 +76,17 @@ class RecordsCreator:
         return guess < CHANCE_TO_HAVE
 
     def generate(self) -> None:
-        self.df = pd.DataFrame(self.output, columns=["account_id", "date_key", "revenue"])
+        self.df = pd.DataFrame(
+            self.output, columns=["account_id", "date_key", "revenue"]
+        )
         self.df.to_csv(path_or_buf=f"./output-norbert.csv", index=True)
 
 
 if __name__ == "__main__":
 
-    users_records = RecordsCreator(no_accounts=1000, start_date='2019-01-01', end_date='2022-05-01')
+    users_records = RecordsCreator(
+        no_accounts=1000, start_date="2019-01-01", end_date="2022-05-01"
+    )
     users_records.fullfill()
     users_records.generate()
+    print("dupa3")
