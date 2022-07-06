@@ -89,4 +89,4 @@ if __name__ == "__main__":
     )
     users_records.fullfill()
     users_records.generate()
-    print("xd")
+    print("Done.")
