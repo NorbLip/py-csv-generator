@@ -79,7 +79,7 @@ class RecordsCreator:
         self.df = pd.DataFrame(
             self.output, columns=["account_id", "date_key", "revenue"]
         )
-        self.df.to_csv(path_or_buf=f"./output-norbert.csv", index=True)
+        self.df.to_csv(path_or_buf=f"./output_norbert.csv", index=True)
 
 
 if __name__ == "__main__":
@@ -89,4 +89,4 @@ if __name__ == "__main__":
     )
     users_records.fullfill()
     users_records.generate()
-    print("dupa3")
+    print("xd")

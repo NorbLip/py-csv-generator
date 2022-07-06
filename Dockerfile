@@ -19,3 +19,5 @@ ENTRYPOINT [ "/bin/bash" ]
 
 # docker build -t python-image .
 # docker run -it python-image
+# docker run -it -v sourcepath:destpath python-image
+# docker run -it -v C:\GitHub\py-csv-generator\:/app python-image
