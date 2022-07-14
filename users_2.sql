@@ -58,7 +58,9 @@ fact_7 AS (
 fact_8 AS (
     SELECT
         date_key,
-        SUM(is_3m_churned) AS a
+        SUM(is_3m_churned) AS churned_3m,
+        COUNT(*) - SUM(is_3m_churned) AS not_churned_3m,
+        COUNT(*) AS total_3m
     FROM fact_5
     GROUP BY date_key
     ORDER BY date_key
@@ -66,7 +68,9 @@ fact_8 AS (
 fact_9 AS (
     SELECT
         date_key,
-        SUM(is_6m_churned) AS b
+        SUM(is_6m_churned) AS churned_6m,
+        COUNT(*) - SUM(is_6m_churned) AS not_churned_6m,
+        COUNT(*) AS total_6m
     FROM fact_6
     GROUP BY date_key
     ORDER BY date_key
@@ -74,7 +78,9 @@ fact_9 AS (
 fact_10 AS (
     SELECT
         date_key,
-        SUM(is_12m_churned) AS c
+        SUM(is_12m_churned) AS churned_12m,
+        COUNT(*) - SUM(is_12m_churned) AS not_churned_12m,
+        COUNT(*) AS total_12m
     FROM fact_7
     GROUP BY date_key
     ORDER BY date_key
@@ -82,9 +88,8 @@ fact_10 AS (
 
 SELECT
     a.date_key,
-    a,
-    b,
-    c
+    churned_3m,
+    not_churned_3m
 FROM fact_8 a
     JOIN fact_9 b ON a.date_key = b.date_key
     JOIN fact_10 c ON a.date_key = c.date_key
